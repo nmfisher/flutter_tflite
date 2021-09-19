@@ -31,3 +31,4 @@ void TfliteBase::interpreterBuild(const char *modelFilename)
 
     TFLITE_MINIMAL_CHECK(interpreter != nullptr);
 }
+

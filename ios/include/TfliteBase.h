@@ -12,13 +12,6 @@
     exit(1);                                                 \
     }
 
-typedef struct 
-{
-    float *melData;
-    std::vector<int32_t> melShape;
-    int32_t bytes;
-} MelGenData;
-
 class TfliteBase
 {
 public:
@@ -38,5 +31,6 @@ private:
     void interpreterBuild(const char* modelFilename);
     void interpreterBuildFromBuffer(const char* buffer, size_t bufferSize);
 };
+
 
 #endif // TFLITEBASE_H
