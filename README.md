@@ -1,15 +1,28 @@
 # flutter_tflite
 
-A new flutter plugin project.
+A Flutter plugin wrapping tensorflow lite.
 
-## Getting Started
+This isn't a genuine Flutter plugin, even though it is packaged as such. This is just a convenient way to package TFLite dynamic libraries and a few helper classes so that actual Flutter plugins/projects can reference this project in their `pubspec.yaml`.
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/developing-packages/),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
+To do so, your podspec on iOS should look something like this:
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## iOS
+
+```
+Pod::Spec.new do |s|
+...
+  s.dependency 'Flutter'
+  s.dependency "flutter_tflite"
+...
+  s.pod_target_xcconfig = { 
+    "ALWAYS_SEARCH_USER_PATHS" => 'YES',
+    'OTHER_LDFLAGS' => '$(inherited) -ltensorflowlite',
+    "USER_HEADER_SEARCH_PATHS" => '"${PODS_ROOT}/../.symlinks/plugins/flutter_tflite/ios/include"'
+  }
+```
+
+and on Android:
+
+
+
 
