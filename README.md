@@ -48,15 +48,16 @@ target_link_libraries(yourlib -landroid -llog -ltflite -ltensorflowlite )
 This assumes a directory structure like:
 ````
 - android
-- - CMakeLists.txt
+  - CMakeLists.txt
 - src
-- - custom.cpp
+  - custom.cpp
 - include
-- - custom.hpp
+  - custom.hpp
 - ios
-- - ...
+  - ...
 - pubspec.yaml
 ```
+
 ### TFLite
 
 TFLite has been built as follows:
