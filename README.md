@@ -1,6 +1,6 @@
 # flutter_tflite
 
-A Flutter plugin wrapping tensorflow lite.
+A Flutter plugin wrapping TFLite.
 
 This isn't a genuine Flutter plugin, even though it is packaged as such. This is just a convenient way to package TFLite dynamic libraries and a few helper classes so that actual Flutter plugins/projects can reference this project in their `pubspec.yaml`.
 
@@ -22,6 +22,20 @@ Pod::Spec.new do |s|
 ```
 
 and on Android:
+
+TODO
+
+### TFLite
+
+TFLite has been built as follows:
+
+```
+git clone https://github.com/tensorflow/tensorflow.git && cd tensorflow
+~/bin/bazel build -c opt --cxxopt=-std=c++14 --config=android_x86_64 //tensorflow/lite:libtensorflowlite.so
+~/bin/bazel build -c opt --cxxopt=-std=c++14 --config=android_x86 //tensorflow/lite:libtensorflowlite.so
+~/bin/bazel build -c opt --cxxopt=-std=c++14 --config=android_arm //tensorflow/lite:libtensorflowlite.so
+~/bin/bazel build -c opt --cxxopt=-std=c++14 --config=android_arm64 //tensorflow/lite:libtensorflowlite.so
+```
 
 
 
