@@ -1,8 +1,6 @@
 # flutter_tflite
 
-A Flutter plugin wrapping TFLite.
-
-This isn't a genuine Flutter plugin, even though it is packaged as such. This is just a convenient way to package TFLite dynamic libraries and a few helper classes so that actual Flutter plugins/projects can reference this project in their `pubspec.yaml`.
+A Flutter plugin wrapping TFLite shared libraries for Android/iOS. This isn't a genuine "plugin", just a convenient way to deliver TFLite dependencies for downstream Flutter plugins/projects to reference in their `pubspec.yaml`.
 
 To do so, your podspec on iOS should look something like this:
 
@@ -21,10 +19,44 @@ Pod::Spec.new do |s|
   }
 ```
 
-and on Android:
+## Android:
 
-TODO
+Libraries will be automatically merged into your application's jniLibs folder.
 
+If you need to write your own C++ code (which you probably will), your CMakeLists.txt file should look something like:
+
+```
+string(REPLACE "your_app_lib\\intermediates\\cmake" "flutter_tflite\\intermediates\\stripped_native_libs" JNI_DIR ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
+string(REPLACE "obj" "out\\lib" JNI_DIR ${JNI_DIR})
+
+link_directories(${JNI_DIR})
+
+include_directories(../src)
+include_directories(../include)
+link_directories(src/main/libs/${ANDROID_ABI}) # don't use jniLibs here because we just want to link against these libraries, the actual .so files will be copied by the AAR dependencies
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
+add_library( 
+            yourlib
+            SHARED
+            ../src/custom.cpp
+        ) 
+
+
+target_link_libraries(yourlib -landroid -llog -ltflite -ltensorflowlite )
+```
+
+This assumes a directory structure like:
+````
+- android
+- - CMakeLists.txt
+- src
+- - custom.cpp
+- include
+- - custom.hpp
+- ios
+- - ...
+- pubspec.yaml
+```
 ### TFLite
 
 TFLite has been built as follows:
